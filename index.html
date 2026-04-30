@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>釣魚日誌</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <meta name="theme-color" content="#0f766e" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+</head>
+<body>
+  <header>
+    <h1>釣魚日誌</h1>
+    <p>漁獲照片・釣點・釣組・潮汐・統計</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>新增紀錄</h2>
+
+      <label>漁獲照片
+        <input id="photo" type="file" accept="image/*" />
+      </label>
+      <img id="preview" class="preview hidden" alt="照片預覽" />
+
+      <div class="grid">
+        <label>日期
+          <input id="date" type="date" />
+        </label>
+        <label>時間
+          <input id="time" type="time" />
+        </label>
+      </div>
+
+      
+      <label>釣法
+        <button class="picker-button" type="button" data-picker="method">請選擇</button>
+        <input id="method" type="hidden" />
+      </label>
+    
+
+      <label>釣場
+        <button class="picker-button" type="button" data-picker="spotType">請選擇</button>
+        <input id="spotType" type="hidden" />
+      </label>
+    
+
+      <label>釣竿
+        <button class="picker-button" type="button" data-picker="rod">請選擇</button>
+        <input id="rod" type="hidden" />
+      </label>
+    
+
+      <label>卷線器
+        <button class="picker-button" type="button" data-picker="reel">請選擇</button>
+        <input id="reel" type="hidden" />
+      </label>
+    
+
+      <label>浮標
+        <button class="picker-button" type="button" data-picker="floatType">請選擇</button>
+        <input id="floatType" type="hidden" />
+      </label>
+    
+
+      <label>浮標號數
+        <button class="picker-button" type="button" data-picker="floatSize">請選擇</button>
+        <input id="floatSize" type="hidden" />
+      </label>
+    
+
+      <label>絲腳
+        <button class="picker-button" type="button" data-picker="foot">請選擇</button>
+        <input id="foot" type="hidden" />
+      </label>
+    
+
+      <label>母線
+        <button class="picker-button" type="button" data-picker="mainLine">請選擇</button>
+        <input id="mainLine" type="hidden" />
+      </label>
+    
+
+      <label>子線號數
+        <button class="picker-button" type="button" data-picker="leader">請選擇</button>
+        <input id="leader" type="hidden" />
+      </label>
+    
+
+      <label>鈎子
+        <button class="picker-button" type="button" data-picker="hook">請選擇</button>
+        <input id="hook" type="hidden" />
+      </label>
+    
+
+      <label>鈎子號數
+        <button class="picker-button" type="button" data-picker="hookSize">請選擇</button>
+        <input id="hookSize" type="hidden" />
+      </label>
+    
+
+      <label>路亞
+        <button class="picker-button" type="button" data-picker="lure">請選擇</button>
+        <input id="lure" type="hidden" />
+      </label>
+    
+
+      <label>釣餌
+        <button class="picker-button" type="button" data-picker="bait">請選擇</button>
+        <input id="bait" type="hidden" />
+      </label>
+    
+
+      <label>潮汐
+        <button class="picker-button" type="button" data-picker="tide">尚未填寫</button>
+        <input id="tide" type="hidden" />
+      </label>
+    
+
+      <label>釣點名稱
+        <input id="spotName" placeholder="例如：安平保七南堤" />
+      </label>
+
+      <div class="grid">
+        <label>緯度
+          <input id="lat" inputmode="decimal" placeholder="自動定位或手動輸入" />
+        </label>
+        <label>經度
+          <input id="lng" inputmode="decimal" placeholder="自動定位或手動輸入" />
+        </label>
+      </div>
+
+      <button id="useLocation" type="button">抓目前位置</button>
+
+      <label>魚種／漁獲
+        <input id="catchName" placeholder="例如：紅沙、臭肚、黑格" />
+      </label>
+
+      <label>魚的重量
+        <input id="weight" inputmode="decimal" placeholder="例如：1.2公斤 / 600克" />
+      </label>
+
+      <label>備註
+        <textarea id="note" rows="4" placeholder="流水、魚訊、釣棚、咬鉛、誘餌、天氣..."></textarea>
+      </label>
+
+      <button id="save" class="primary" type="button">儲存紀錄</button>
+    </section>
+
+    <section class="card">
+      <h2>搜尋</h2>
+      <div class="grid">
+        <label>年份
+          <input id="searchYear" type="number" placeholder="2026" />
+        </label>
+        <label>月份
+          <input id="searchMonth" type="number" min="1" max="12" placeholder="4" />
+        </label>
+      </div>
+      <label>日期
+        <input id="searchDate" type="date" />
+      </label>
+      <label>魚種搜尋
+        <input id="searchFish" placeholder="例如：紅沙" />
+      </label>
+      <button id="clearSearch" type="button">清除搜尋</button>
+    </section>
+
+    <section class="card">
+      <h2>統計</h2>
+      <div id="stats"></div>
+    </section>
+
+    <section>
+      <h2 class="list-title">紀錄</h2>
+      <div id="records"></div>
+    </section>
+  </main>
+
+  <div id="pickerOverlay" class="picker-overlay hidden">
+    <div class="picker-sheet">
+      <div class="picker-top">
+        <button id="pickerCancel" class="picker-small" type="button">取消</button>
+        <div id="pickerTitle" class="picker-title">選擇</div>
+        <button id="pickerDone" class="picker-small done" type="button">完成</button>
+      </div>
+      <div class="wheel-wrap">
+        <div class="wheel-highlight"></div>
+        <div id="wheel" class="wheel"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
